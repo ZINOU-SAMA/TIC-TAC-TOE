@@ -1,0 +1,20 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+#main {
+    display: grid;
+    place-content: center;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(3,1fr);
+    width: 750px;
+}
+
+.sqr {
+    width: 250px;
+    height: 250px;
+    border: 2px black solid;
+}
+
