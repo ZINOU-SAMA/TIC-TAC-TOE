@@ -16,5 +16,10 @@ body {
     width: 250px;
     height: 250px;
     border: 2px black solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }
+
 
