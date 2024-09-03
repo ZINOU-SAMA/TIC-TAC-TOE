@@ -1,11 +1,20 @@
-body {
+*{
+    font-family: Comic Neue, sans-serif;
+}
+
+body{
+    display: flex;
+    justify-content: space-between;
+}
+
+#container-2 {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 #main {
-  margin: auto;
+  margin-top: 50px;
   display: grid;
   place-content: center;
   grid-template-columns: repeat(3, 1fr);
@@ -30,4 +39,10 @@ button {
   height: 40px;
   border-radius: 25px;
   cursor: pointer;
+}
+
+#container-1,#container-3{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
