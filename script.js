@@ -86,10 +86,26 @@ const checkGameStatus = () => {
   if (winner) {
     alert(`${winner} Wins!`);
     gameOver = true;
+    resetButoon.innerHTML = "<button>Play Again</button>";
+    const playAgainButton = resetButoon.querySelector("button"); // Select the button inside the div
+    playAgainButton.addEventListener("click", resetGame);
   } else if (checkForDraw()) {
     alert(`It's a Draw!`);
     gameOver = true;
+    resetButoon.innerHTML = "<button>Play Again</button>";
+    const playAgainButton = resetButoon.querySelector("button"); // Select the button inside the div
+    playAgainButton.addEventListener("click", resetGame);
   }
+};
+
+const resetGame = () => {
+  squares.forEach((square) => {
+    square.filled = false;
+    square.item.innerHTML = "";
+  });
+  turnIndex = 1;
+  gameOver = false;
+  resetButoon.innerHTML = "";
 };
 
 let squares = [];
@@ -101,3 +117,4 @@ for (let i = 1; i <= 9; i++) {
 
 let turnIndex = 1;
 let gameOver = false;
+const resetButoon = document.getElementById("reset-button");

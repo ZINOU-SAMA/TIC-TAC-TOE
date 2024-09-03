@@ -1,25 +1,33 @@
 body {
-    display: flex;
-    justify-content: center;
-    align-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #main {
-    display: grid;
-    place-content: center;
-    grid-template-columns: repeat(3,1fr);
-    grid-template-rows: repeat(3,1fr);
-    width: 750px;
+  margin: auto;
+  display: grid;
+  place-content: center;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  width: 750px;
 }
 
 .sqr {
-    width: 250px;
-    height: 250px;
-    border: 2px black solid;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+  width: 250px;
+  height: 250px;
+  border: 2px black solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 
-
+button {
+  margin: auto;
+  margin-top: 30px;
+  width: 200px;
+  height: 40px;
+  border-radius: 25px;
+  cursor: pointer;
+}
