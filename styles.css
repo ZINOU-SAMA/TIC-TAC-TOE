@@ -92,8 +92,30 @@ button {
 
 .names {
   text-align: center;
-  margin-top: 50px;
+  margin-top: 100px;
+  font-size: 5rem;
+}
+
+#player {
   color: #e57373;
+}
+
+#computer {
+  color: #64b5f6;
+}
+
+h2 {
+  text-align: center;
+  margin-top: 150px;
+  font-size: 8rem;
+}
+
+#pscore {
+  color: #e57373;
+}
+
+#cscore {
+  color: #64b5f6;
 }
 
 #game-result > h1 {

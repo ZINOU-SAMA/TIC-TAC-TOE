@@ -75,9 +75,11 @@ const checkGameStatus = () => {
     if (winner === `<h1 class="x">X</h1>`) {
       gameResult.innerHTML = "<h1>Player Won!</h1>";
       gameResult.style.color = "#e74c3c";
+      document.getElementById("pscore").innerHTML = parseInt(document.getElementById("pscore").innerHTML) + 1;
     } else {
       gameResult.innerHTML = "<h1>Computer Won!</h1>";
       gameResult.style.color = "#3498db";
+      document.getElementById("cscore").innerHTML = parseInt(document.getElementById("cscore").innerHTML) + 1;
     }
     resetButton.innerHTML = "<button>Play Again</button>";
     const playAgainButton = resetButton.querySelector("button");
