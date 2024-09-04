@@ -6,15 +6,10 @@ class Square {
     this.item.addEventListener("click", () => this.fill());
   }
   fill() {
-    if (this.filled || turnIndex % 2 === 0) {
-      return;
-    }
-    if (gameOver === true) {
-      return;
-    }
+    if (this.filled || turnIndex === false || gameOver) return;
     this.item.innerHTML = "<h1 class='x'>X</h1>";
     this.filled = true;
-    turnIndex++;
+    turnIndex = !turnIndex;
     roles();
     setTimeout(() => {
       checkGameStatus();
@@ -23,9 +18,7 @@ class Square {
 }
 
 const computer = () => {
-  if (gameOver === true) {
-    return;
-  }
+  if (gameOver) return;
   let flag = false;
   while (flag === false) {
     let random = Math.floor(Math.random() * 9);
@@ -33,7 +26,7 @@ const computer = () => {
       squares[random].item.innerHTML = "<h1 class='o'>O</h1>";
       squares[random].filled = true;
       flag = true;
-      turnIndex++;
+      turnIndex = !turnIndex;
     }
   }
   setTimeout(() => {
@@ -42,10 +35,8 @@ const computer = () => {
 };
 
 const roles = () => {
-  if (turnIndex % 2 === 0) {
-    setTimeout(() => {
-      computer();
-    }, 1500);
+  if (turnIndex === false) {
+    setTimeout(computer, 1500);
   }
 };
 
@@ -61,22 +52,18 @@ const winningCombinations = [
 ];
 
 const checkForDraw = () => {
-  if (turnIndex === 10) {
-    return true;
-  }
+  return squares.every((square) => square.filled);
 };
 
 const checkForWin = () => {
-  if (turnIndex >= 5) {
-    for (let combination of winningCombinations) {
-      let [a, b, c] = combination;
-      if (
-        squares[a].filled &&
-        squares[a].item.innerHTML === squares[b].item.innerHTML &&
-        squares[a].item.innerHTML === squares[c].item.innerHTML
-      ) {
-        return squares[a].item.innerHTML;
-      }
+  for (let combination of winningCombinations) {
+    let [a, b, c] = combination;
+    if (
+      squares[a].filled &&
+      squares[a].item.innerHTML === squares[b].item.innerHTML &&
+      squares[a].item.innerHTML === squares[c].item.innerHTML
+    ) {
+      return squares[a].item.innerHTML;
     }
   }
 };
@@ -84,16 +71,23 @@ const checkForWin = () => {
 const checkGameStatus = () => {
   const winner = checkForWin();
   if (winner) {
-    alert(`${winner} Wins!`);
     gameOver = true;
-    resetButoon.innerHTML = "<button>Play Again</button>";
-    const playAgainButton = resetButoon.querySelector("button");
+    if (winner === `<h1 class="x">X</h1>`) {
+      gameResult.innerHTML = "<h1>Player Won!</h1>";
+      gameResult.style.color = "#e74c3c";
+    } else {
+      gameResult.innerHTML = "<h1>Computer Won!</h1>";
+      gameResult.style.color = "#3498db";
+    }
+    resetButton.innerHTML = "<button>Play Again</button>";
+    const playAgainButton = resetButton.querySelector("button");
     playAgainButton.addEventListener("click", resetGame);
   } else if (checkForDraw()) {
-    gameResult.innerHTML = "<h1>It's a Draw!</h1>";
     gameOver = true;
-    resetButoon.innerHTML = "<button>Play Again</button>";
-    const playAgainButton = resetButoon.querySelector("button");
+    gameResult.innerHTML = "<h1>It's a Draw!</h1>";
+    gameResult.style.color = "#f0a835";
+    resetButton.innerHTML = "<button>Play Again</button>";
+    const playAgainButton = resetButton.querySelector("button");
     playAgainButton.addEventListener("click", resetGame);
   }
 };
@@ -103,9 +97,8 @@ const resetGame = () => {
     square.filled = false;
     square.item.innerHTML = "";
   });
-  turnIndex = 1;
   gameOver = false;
-  resetButoon.innerHTML = "";
+  resetButton.innerHTML = "";
   gameResult.innerHTML = "";
 };
 
@@ -116,7 +109,7 @@ for (let i = 1; i <= 9; i++) {
   squares.push(square);
 }
 
-let turnIndex = 1;
+let turnIndex = true;
 let gameOver = false;
-const resetButoon = document.getElementById("reset-button");
+const resetButton = document.getElementById("reset-button");
 const gameResult = document.getElementById("game-result");
