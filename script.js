@@ -10,28 +10,25 @@ class Square {
     this.item.innerHTML = "<h1 class='x'>X</h1>";
     this.filled = true;
     turnIndex = !turnIndex;
+    checkGameStatus(); 
+    if (gameOver) return; 
     roles();
-    setTimeout(() => {
-      checkGameStatus();
-    }, 200);
   }
 }
 
 const computer = () => {
   if (gameOver) return;
-  let flag = false;
-  while (flag === false) {
-    let random = Math.floor(Math.random() * 9);
-    if (squares[random].filled === false) {
-      squares[random].item.innerHTML = "<h1 class='o'>O</h1>";
-      squares[random].filled = true;
-      flag = true;
-      turnIndex = !turnIndex;
-    }
-  }
-  setTimeout(() => {
-    checkGameStatus();
-  }, 200);
+  
+  const emptySquares = squares.filter((sq) => !sq.filled);
+  if (emptySquares.length === 0) return; 
+
+  const randomIndex = Math.floor(Math.random() * emptySquares.length);
+  const square = emptySquares[randomIndex];
+
+  square.item.innerHTML = "<h1 class='o'>O</h1>";
+  square.filled = true;
+  turnIndex = !turnIndex; 
+  checkGameStatus(); 
 };
 
 const roles = () => {
@@ -104,6 +101,17 @@ const resetGame = () => {
   gameOver = false;
   resetButton.innerHTML = "";
   gameResult.innerHTML = "";
+  turn = !turn; 
+  firstTurn(); 
+};
+
+const firstTurn = () => {
+  if (turn) {
+    turnIndex = true; 
+  } else {
+    turnIndex = false; 
+    roles(); 
+  }
 };
 
 let squares = [];
@@ -113,6 +121,7 @@ for (let i = 1; i <= 9; i++) {
   squares.push(square);
 }
 
+let turn = true;
 let turnIndex = true;
 let gameOver = false;
 const resetButton = document.getElementById("reset-button");
